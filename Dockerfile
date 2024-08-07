@@ -7,11 +7,12 @@ ARG ECLIPSE_TAR_FILE=eclipse-rcp-neon-3-linux-gtk-x86_64.tar.gz
 ARG ECLIPSE_TARGET_DIR="/opt/eclipse"
 
 RUN apt-get update && apt-get install -y \
-    wget \ 
-    mesa-utils \
     default-jre \
     libboost-all-dev \
     libcanberra-gtk-module \
+    mesa-utils \
+    tmux \
+    wget \ 
     && rm -rf /var/lib/apt/lists/*
 
 # RUN mkdir -p ${ECLIPSE_TARGET_DIR} \
@@ -41,7 +42,5 @@ RUN echo "alias l='ls -1'" >> ~/.bashrc && \
 # Ensure .bashrc is sourced when a new shell session starts
 RUN echo 'source ~/.bashrc' >> ~/.bash_profile
 
-# ENTRYPOINT ["sleep"]
-# CMD ["sleep", "infinity", "1000"]
 CMD ["sleep", "1000"]
 
