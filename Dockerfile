@@ -21,11 +21,12 @@ RUN apt-get update && apt-get install -y \
 #     && tar -xvzf ${ECLIPSE_TAR_FILE} -C ${ECLIPSE_TARGET_DIR} 
 
 # Download Eclipse
-ADD ${ECLIPSE_DOWNLOAD_URL} ${ECLIPSE_TAR_FILE}
+#ADD ${ECLIPSE_DOWNLOAD_URL} ${ECLIPSE_TAR_FILE}
 
-RUN mkdir -p ${ECLIPSE_TARGET_DIR} \
-   && tar -xvzf ${ECLIPSE_TAR_FILE} -C ${ECLIPSE_TARGET_DIR} \
-   && rm -f ${ECLIPSE_TAR_FILE}
+# Unpack Eclipse
+#RUN mkdir -p ${ECLIPSE_TARGET_DIR} \
+#   && tar -xvzf ${ECLIPSE_TAR_FILE} -C ${ECLIPSE_TARGET_DIR} \
+#   && rm -f ${ECLIPSE_TAR_FILE}
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" powerlink
@@ -42,5 +43,5 @@ RUN echo "alias l='ls -1'" >> ~/.bashrc && \
 # Ensure .bashrc is sourced when a new shell session starts
 RUN echo 'source ~/.bashrc' >> ~/.bash_profile
 
-CMD ["sleep", "1000"]
+CMD ["sleep", "infinity", "1000"]
 
