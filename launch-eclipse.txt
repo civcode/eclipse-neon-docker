@@ -1,3 +1,1 @@
-docker exec -it <container-id> /bin/bash/
-docker exec -it <container-id> tmux
-docker exec -it <container-id> /docker-ws/eclipse/eclipse-rcp-neon-3-linux-gtk-x86_64/eclipse/eclipse
+docker exec -it <container-id> eclipse

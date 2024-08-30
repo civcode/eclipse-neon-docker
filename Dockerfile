@@ -2,9 +2,8 @@ FROM ubuntu:16.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG ECLIPSE_DOWNLOAD_URL="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/3/eclipse-rcp-neon-3-linux-gtk-x86_64.tar.gz"
-ARG ECLIPSE_TAR_FILE=eclipse-rcp-neon-3-linux-gtk-x86_64.tar.gz
-ARG ECLIPSE_TARGET_DIR="/opt/eclipse"
+# Set the environment variable for the eclipse executable path in the container
+ARG ECLIPSE_EXECUTABLE_PATH="/workspace/powerlink/eclipse/eclipse-rcp-neon-3-linux-gtk-x86_64/eclipse"
 
 RUN apt-get update && apt-get install -y \
     default-jre \
@@ -15,18 +14,12 @@ RUN apt-get update && apt-get install -y \
     wget \ 
     && rm -rf /var/lib/apt/lists/*
 
-# RUN mkdir -p ${ECLIPSE_TARGET_DIR} \
-#     && cd ${ECLIPSE_TARGET_DIR} \
-#     && wget -O ${ECLIPSE_TAR_FILE} ${ECLIPSE_DOWNLOAD_URL} \
-#     && tar -xvzf ${ECLIPSE_TAR_FILE} -C ${ECLIPSE_TARGET_DIR} 
+# Problem with installing eclipse in the container
+# => Plugins will only be installed in the container and not in the host
+# => Solution: Install eclipse in the host
 
-# Download Eclipse
-#ADD ${ECLIPSE_DOWNLOAD_URL} ${ECLIPSE_TAR_FILE}
-
-# Unpack Eclipse
-#RUN mkdir -p ${ECLIPSE_TARGET_DIR} \
-#   && tar -xvzf ${ECLIPSE_TAR_FILE} -C ${ECLIPSE_TARGET_DIR} \
-#   && rm -f ${ECLIPSE_TAR_FILE}
+# Create a symlink to the eclipse executable
+RUN ln -s ${ECLIPSE_EXECUTABLE_PATH} /usr/bin/eclipse
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" powerlink
